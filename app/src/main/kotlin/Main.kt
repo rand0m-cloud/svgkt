@@ -45,8 +45,7 @@ fun ApplicationScope.MainComponent() {
     }
 }
 
-@Suppress("UnusedReceiverParameter")
-fun SvgModifier.center() = simpleModifier { tree ->
+fun SvgModifier.center() = this then simpleModifier { tree ->
     val bb = tree.calculateBoundingBox().scale(-0.5f)
     fragment {
         g("transform" to "translate(${bb.width}, ${bb.height})") {
@@ -55,8 +54,7 @@ fun SvgModifier.center() = simpleModifier { tree ->
     }
 }
 
-@Suppress("UnusedReceiverParameter")
-fun SvgModifier.rotateAroundCenter(degrees: Float) = simpleModifier { tree ->
+fun SvgModifier.rotateAroundCenter(degrees: Float) = this then simpleModifier { tree ->
     val bb = tree.calculateBoundingBox().scale(0.5f)
     fragment {
         g("transform" to "rotate($degrees, ${bb.width}, ${bb.height})") {

@@ -22,6 +22,7 @@ interface SvgBuilderScope {
     fun attr(tag: String, value: String)
     fun child(vararg c: SvgBuilderElement)
 
+    // TODO - is this still needed?
     // works around context receivers as they exist
     // hopefully named context receivers will come
     @Suppress("PropertyName")
