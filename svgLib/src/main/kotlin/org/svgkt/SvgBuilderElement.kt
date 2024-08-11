@@ -15,7 +15,13 @@ interface SvgBuilderElement {
             attrs,
             children.map { it.toElement() }.toMutableList()
         )
-    )
+    ).let {
+        if (it.tag == "" && it.children.size == 1) {
+            it.children[0]
+        } else {
+            it
+        }
+    }
 }
 
 interface SvgBuilderScope {

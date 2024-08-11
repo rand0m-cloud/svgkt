@@ -2,6 +2,7 @@
 compose-runtime = "1.6.8"
 kotlin = "2.0.0"
 kotlinx-coroutines = "1.8.1"
+compose-multiplatform = "1.6.11"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -12,3 +13,4 @@ compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }

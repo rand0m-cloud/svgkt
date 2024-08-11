@@ -7,6 +7,7 @@ use cbindgen::Config;
 
 fn main() {
     println!("cargo:rerun-if-changed=build.rs");
+    println!("cargo:rerun-if-changed=cbindgen.toml");
     let crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
 
     cbindgen::Builder::new()
@@ -31,9 +32,10 @@ fn main() {
             .args(&[
                 "-t",
                 "org.svgkt.nativelibs.sys",
-                "../include/bindings.h",
+                "header.h",
+                "--output",
+                "target/java"
             ])
-            .current_dir("target/java")
             .stderr(Stdio::inherit())
             .stdout(Stdio::inherit())
             .spawn()

@@ -6,9 +6,10 @@ import androidx.compose.runtime.snapshots.Snapshot
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.yield
-import org.svgkt.*
-import org.svgkt.Elements.g
-import org.svgkt.nativelibs.calculateBoundingBox
+import org.svgkt.SvgBuilderElement
+import org.svgkt.SvgModifier
+import org.svgkt.appendBuildFragment
+import org.svgkt.buildFragment
 
 abstract class Node {
     val children = mutableListOf<Node>()
@@ -120,8 +121,8 @@ val LocalFrameClock = staticCompositionLocalOf<FrameClock> { error("missing fram
 
 @OptIn(ExperimentalComposeRuntimeApi::class)
 fun application(
-    duration: Double = Double.POSITIVE_INFINITY,
     fps: Int = 24,
+    duration: Double = Double.POSITIVE_INFINITY,
     onFrame: (Node, Long) -> Unit = { _, _ -> },
     content: @Composable ApplicationScope.() -> Unit
 ) {

@@ -1,9 +1,13 @@
 package org.svgkt.app
 
 import androidx.compose.runtime.*
+import composeViewer
 import org.svgkt.*
 import org.svgkt.Elements.g
-import org.svgkt.compose.*
+import org.svgkt.compose.ApplicationScope
+import org.svgkt.compose.SvgElement
+import org.svgkt.compose.currentFrameIndex
+import org.svgkt.compose.currentTime
 import org.svgkt.nativelibs.calculateBoundingBox
 
 @Composable
@@ -24,24 +28,20 @@ fun ApplicationScope.MainComponent() {
         "frame" to frame.toString(),
         "time" to time.toString(),
         "xmlns" to "http://www.w3.org/2000/svg",
-        "width" to "300",
-        "height" to "200",
+        "width" to "1280",
+        "height" to "720",
     ) {
-        SvgElement(
-            "g",
-            modifier = SvgModifier.rotateAroundCenter(360.0f * time).translate(50f, 50f)
-        ) {
-            SvgElement(
-                "rect",
-                "fill" to "red",
-                "width" to "100",
-                "height" to "100",
-            ) {
-                SvgElement("g", "data-count" to "$count")
-            }
-
-        }
-
+       SvgElement(
+           "g",
+           modifier = SvgModifier.rotateAroundCenter(time*720f).translate(1280f * time,0f)
+       ) {
+           SvgElement(
+               "rect",
+               "fill" to "purple",
+               "width" to "100",
+               "height" to "100",
+           )
+       }
     }
 }
 
@@ -63,14 +63,10 @@ fun SvgModifier.rotateAroundCenter(degrees: Float) = this then simpleModifier { 
     }
 }
 
-fun main() = application(
-    duration = 1.0,
-    fps = 60,
-    onFrame = { frame, _ ->
-        println("${frame.toSvgBuilderElement().toElement()}")
-    }
+fun main() = composeViewer(
+    24,
+    1.0,
 ) {
     MainComponent()
 }
-
 

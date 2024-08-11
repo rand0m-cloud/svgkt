@@ -1,11 +1,8 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.compose.compiler)
-    application
-}
-
-application {
-    mainClass = "org.svgkt.app.MainKt"
+    alias(libs.plugins.compose.multiplatform)
+    `java-library`
 }
 
 kotlin {
@@ -17,11 +14,16 @@ kotlin {
 
 dependencies {
     implementation(libs.kotlinx.coroutines)
-    implementation(libs.kotlinx.coroutines.desktop)
-    implementation(libs.compose.runtime)
-    implementation(project(":composeViewer"))
+
+    implementation(compose.runtime)
+    implementation(compose.ui)
+    implementation(compose.foundation)
+    implementation(compose.material)
+    implementation(compose.desktop.currentOs)
+
     implementation(project(":svgLib"))
     implementation(project(":svgComposeLib"))
+    implementation(project(":nativelibs"))
 }
 
 tasks.test {

@@ -30,11 +30,21 @@ kotlin {
 
 dependencies {
     implementation(project(":svgLib"))
+    implementation(libs.kotlinx.coroutines)
 
     testImplementation(kotlin("test"))
 }
 
 abstract class BuildNative @Inject constructor() : DefaultTask() {
+    @InputDirectory
+    val rustSrcDir: File = project.file("src")
+
+    @OutputDirectory
+    val javaOutDir: File = project.file("target/java")
+
+    @OutputDirectory
+    val jarOutDir: File = project.file("target/jar")
+
     @get:Inject
     abstract val execOperations: ExecOperations
 
@@ -62,6 +72,9 @@ tasks.register<BuildNative>("buildNative") {
 
 afterEvaluate {
     tasks.named("compileKotlin") {
+        dependsOn("buildNative")
+    }
+    tasks.named("processResources") {
         dependsOn("buildNative")
     }
 }
